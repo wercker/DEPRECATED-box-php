@@ -7,6 +7,7 @@ Installed PHP versions:
 - PHP `5.3.29`
 - PHP `5.4.36`
 - PHP `5.5.20`
+* PHP `5.6.4`
 
 Installed extensions:
 
@@ -23,6 +24,11 @@ Installed extensions:
 The MIT License (MIT)
 
 # Changelog
+
+
+## 1.2.0
+- added php 5.6 support
+
 
 ## 1.1.1
 

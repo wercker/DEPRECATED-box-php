@@ -1,5 +1,5 @@
 name: php
-version: 1.1.1
+version: 1.2.0-rc1
 inherits: wercker/ubuntu12.04-webessentials@1.0.4
 type : main
 platform : ubuntu@12.04
@@ -15,6 +15,7 @@ packages :
   - php@5.3
   - php@5.4
   - php@5.5
+  - php@5.6
 script : |
   # Add eports to profile, rc didn't work
   echo 'export PATH="/usr/local/bin:$PATH"' >> $HOME/.bash_profile
@@ -130,6 +131,30 @@ script : |
   # Setup environment
   phpenv rehash
   phpenv global 5.5
+  prefix=$(phpenv prefix)
+
+  # Install composer
+  sudo cp composer.phar $prefix/bin/composer
+  sudo chmod +x $prefix/bin/composer
+
+  # Install DBunit and DBunit
+  pear config-set auto_discover 1
+  pear channel-discover pear.phpunit.de
+  pear install pear.phpunit.de/PHPUnit
+  pear install pear.phpunit.de/DbUnit
+
+  # Install atoum
+  wget http://downloads.atoum.org/nightly/mageekguy.atoum.phar
+  chmod +x mageekguy.atoum.phar
+  sudo mv mageekguy.atoum.phar $prefix/bin/atoum
+  sudo chmod +x $prefix/bin/atoum
+
+  php-build -i development --pear 5.6.4 $HOME/.phpenv/versions/5.6 --verbose
+  sed -i  's/128M/8096M/' /home/ubuntu/.phpenv/versions/5.6/etc/php.ini
+
+  # Setup environment
+  phpenv rehash
+  phpenv global 5.6
   prefix=$(phpenv prefix)
 
   # Install composer
