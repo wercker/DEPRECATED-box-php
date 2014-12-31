@@ -1,5 +1,5 @@
 name: php
-version: 1.1.0
+version: 1.1.1
 inherits: wercker/ubuntu12.04-webessentials@1.0.4
 type : main
 platform : ubuntu@12.04
@@ -62,7 +62,7 @@ script : |
   # Build PHP versions
   cp patch-intl-5.3.sh /usr/local/share/php-build/before-install.d/
   chmod +x /usr/local/share/php-build/before-install.d/patch-intl-5.3.sh
-  php-build -i development --pear 5.3.28 $HOME/.phpenv/versions/5.3 --verbose
+  php-build -i development --pear 5.3.29 $HOME/.phpenv/versions/5.3 --verbose
   rm /usr/local/share/php-build/before-install.d/patch-intl-5.3.sh
   sed -i  's/128M/8096M/' /home/ubuntu/.phpenv/versions/5.3/etc/php.ini
 
@@ -100,7 +100,7 @@ script : |
   sudo mv mageekguy.atoum.phar $prefix/bin/atoum
   sudo chmod +x $prefix/bin/atoum
 
-  php-build -i development --pear 5.4.28 $HOME/.phpenv/versions/5.4 --verbose
+  php-build -i development --pear 5.4.36 $HOME/.phpenv/versions/5.4 --verbose
   sed -i  's/128M/8096M/' /home/ubuntu/.phpenv/versions/5.4/etc/php.ini
 
   # Setup environment
@@ -124,7 +124,7 @@ script : |
   sudo mv mageekguy.atoum.phar $prefix/bin/atoum
   sudo chmod +x $prefix/bin/atoum
 
-  php-build -i development --pear 5.5.11 $HOME/.phpenv/versions/5.5 --verbose
+  php-build -i development --pear 5.5.20 $HOME/.phpenv/versions/5.5 --verbose
   sed -i  's/128M/8096M/' /home/ubuntu/.phpenv/versions/5.5/etc/php.ini
 
   # Setup environment

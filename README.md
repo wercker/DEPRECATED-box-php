@@ -4,9 +4,9 @@ A wercker box with multiple PHP installation installed.
 
 Installed PHP versions:
 
-- PHP `5.3.28`
-- PHP `5.4.28`
-- PHP `5.5.11`
+- PHP `5.3.29`
+- PHP `5.4.36`
+- PHP `5.5.20`
 
 Installed extensions:
 
@@ -23,6 +23,12 @@ Installed extensions:
 The MIT License (MIT)
 
 # Changelog
+
+## 1.1.1
+
+- updated php 5.3 to 5.3.29
+- updated php 5.4 to 5.4.36
+- updated php 5.5 to 5.5.20
 
 ## 1.1.0
 
