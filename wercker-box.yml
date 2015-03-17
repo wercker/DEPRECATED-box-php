@@ -1,5 +1,5 @@
 name: php
-version: 1.1.1
+version: 2.0.0
 inherits: wercker/ubuntu12.04-webessentials@1.0.4
 type : main
 platform : ubuntu@12.04
@@ -12,9 +12,9 @@ description : php
 keywords:
   - php
 packages :
-  - php@5.3
-  - php@5.4
-  - php@5.5
+  - php@5.4.38
+  - php@5.5.22
+  - php@5.6.6
 script : |
   # Add eports to profile, rc didn't work
   echo 'export PATH="/usr/local/bin:$PATH"' >> $HOME/.bash_profile
@@ -59,49 +59,14 @@ script : |
   # Validate phpenv
   phpenv --version
 
-  # Build PHP versions
-  cp patch-intl-5.3.sh /usr/local/share/php-build/before-install.d/
-  chmod +x /usr/local/share/php-build/before-install.d/patch-intl-5.3.sh
-  php-build -i development --pear 5.3.29 $HOME/.phpenv/versions/5.3 --verbose
-  rm /usr/local/share/php-build/before-install.d/patch-intl-5.3.sh
-  sed -i  's/128M/8096M/' /home/ubuntu/.phpenv/versions/5.3/etc/php.ini
-
-  # Setup environment
-  phpenv rehash
-  phpenv global 5.3
-  phpenv rehash
-  prefix=$(phpenv prefix)
-
-  # list php version environment
-  ls $prefix
-  ls $prefix/pear
-
-  # echo the current path
-  echo $PATH
-
   # Download composer
   curl -sS https://getcomposer.org/installer | php
   sudo chmod +x ./composer.phar
-  ./composer.phar selfupdate
+  ./composer.phar self-update
 
-  # Install composer
-  sudo cp composer.phar $prefix/bin/composer
-  sudo chmod +x $prefix/bin/composer
+  # PHP 5.4
 
-  pear config-set auto_discover 1
-
-  # Install PHPUnit and DBunit
-  wget https://phar.phpunit.de/phpunit.phar
-  chmod +x phpunit.phar
-  sudo mv phpunit.phar $prefix/bin/phpunit
-
-  # Install atoum
-  wget http://downloads.atoum.org/nightly/mageekguy.atoum.phar
-  chmod +x mageekguy.atoum.phar
-  sudo mv mageekguy.atoum.phar $prefix/bin/atoum
-  sudo chmod +x $prefix/bin/atoum
-
-  php-build -i development --pear 5.4.36 $HOME/.phpenv/versions/5.4 --verbose
+  php-build -i development --pear 5.4.38 $HOME/.phpenv/versions/5.4 --verbose
   sed -i  's/128M/8096M/' /home/ubuntu/.phpenv/versions/5.4/etc/php.ini
 
   # Setup environment
@@ -125,7 +90,9 @@ script : |
   sudo mv mageekguy.atoum.phar $prefix/bin/atoum
   sudo chmod +x $prefix/bin/atoum
 
-  php-build -i development --pear 5.5.20 $HOME/.phpenv/versions/5.5 --verbose
+  # PHP 5.5
+
+  php-build -i development --pear 5.5.22 $HOME/.phpenv/versions/5.5 --verbose
   sed -i  's/128M/8096M/' /home/ubuntu/.phpenv/versions/5.5/etc/php.ini
 
   # Setup environment
@@ -149,8 +116,33 @@ script : |
   sudo mv mageekguy.atoum.phar $prefix/bin/atoum
   sudo chmod +x $prefix/bin/atoum
 
+  # PHP 5.6
+
+  php-build -i development --pear 5.6.6 $HOME/.phpenv/versions/5.6 --verbose
+  sed -i  's/128M/8096M/' /home/ubuntu/.phpenv/versions/5.6/etc/php.ini
+
+  # Setup environment
   phpenv rehash
-  phpunit --version
+  phpenv global 5.6
+  prefix=$(phpenv prefix)
+
+  # Install composer
+  sudo cp composer.phar $prefix/bin/composer
+  sudo chmod +x $prefix/bin/composer
+
+  # Install PHPUnit and DBunit
+  pear config-set auto_discover 1
+  wget https://phar.phpunit.de/phpunit.phar
+  chmod +x phpunit.phar
+  sudo mv phpunit.phar $prefix/bin/phpunit
+
+  # Install atoum
+  wget http://downloads.atoum.org/nightly/mageekguy.atoum.phar
+  chmod +x mageekguy.atoum.phar
+  sudo mv mageekguy.atoum.phar $prefix/bin/atoum
+  sudo chmod +x $prefix/bin/atoum
+
+  phpenv rehash
 
 default-build:
   php-composer-phpunit:
