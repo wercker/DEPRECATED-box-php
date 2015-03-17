@@ -59,10 +59,6 @@ script : |
   # Validate phpenv
   phpenv --version
 
-  # Download composer
-  curl -sS https://getcomposer.org/installer | php
-  sudo chmod +x ./composer.phar
-  ./composer.phar self-update
 
   # PHP 5.4
 
@@ -73,6 +69,11 @@ script : |
   phpenv rehash
   phpenv global 5.4
   prefix=$(phpenv prefix)
+
+  # Download composer
+  curl -sS https://getcomposer.org/installer | php
+  sudo chmod +x ./composer.phar
+  ./composer.phar self-update
 
   # Install composer
   sudo cp composer.phar $prefix/bin/composer
