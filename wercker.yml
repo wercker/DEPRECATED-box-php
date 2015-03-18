@@ -2,5 +2,13 @@ box: wercker/default
 build:
     steps:
         - script:
-            name: foo
-            code: echo "foo"
+            name: install php-build
+            code: ./install-php-build.sh
+
+        - script:
+            name: install phpenv
+            code: ./install-phpenv.sh
+
+        - script:
+            name: build PHP
+            code: ./build-phps.sh
