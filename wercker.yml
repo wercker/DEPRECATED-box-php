@@ -1,4 +1,6 @@
 box: wercker/default
+no-response-timeout: 60
+command-timeout: 60
 build:
     steps:
         - script:
