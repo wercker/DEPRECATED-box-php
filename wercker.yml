@@ -2,6 +2,10 @@ box: wercker/default
 build:
     steps:
         - script:
+            name: install dependencies
+            code: ./install-depdencies.sh
+
+        - script:
             name: install php-build
             code: sudo ./install-php-build.sh
 
