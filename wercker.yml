@@ -3,7 +3,7 @@ build:
     steps:
         - script:
             name: install php-build
-            code: ./install-php-build.sh
+            code: sudo ./install-php-build.sh
 
         - script:
             name: install phpenv
