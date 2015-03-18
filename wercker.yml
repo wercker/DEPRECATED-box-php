@@ -3,7 +3,7 @@ build:
     steps:
         - script:
             name: install dependencies
-            code: ./install-depdencies.sh
+            code: ./install-dependencies.sh
 
         - script:
             name: install php-build
