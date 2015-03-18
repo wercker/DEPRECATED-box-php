@@ -7,7 +7,7 @@ build:
 
         - script:
             name: install phpenv
-            code: ./install-phpenv.sh
+            code: sudo ./install-phpenv.sh
 
         - script:
             name: build PHP
