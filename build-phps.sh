@@ -47,6 +47,8 @@ build_php() {
   local versions_dir="$HOME"/.phpenv/versions
   local build_dir="$versions_dir"/"$minor_version"
 
+  mkdir -p "$versions_dir"
+
   php-build -i development --pear "$version" "$build_dir" --verbose
   sed -i  's/128M/4048M/' "$build_dir"/etc/php.ini
 
@@ -56,21 +58,16 @@ build_php() {
   curl -s -o "$build_dir"/bin/atoum http://downloads.atoum.org/nightly/mageekguy.atoum.phar
   chmod +x "$build_dir"/bin/composer "$build_dir"/bin/phpunit "$build_dir"/bin/atoum
 
-  phpenv rehash
-  phpenv global "$minor_version"
-
-  "$build_dir"/bin/composer self-update
-
   # archive
-  pushd "$build_dir"
-  tar czvf "$HOME"/"$version".tar.gz --directory="$versions_dir" "$version"
-  popd
+  tar czvf "$HOME"/"$version".tar.gz --directory="$versions_dir" "$minor_version"
 }
 
 upload_php() {
   local version="$1"
 
-  echo "Going to upload ${version}!";
+  echo "Going to upload $version!";
+
+  ls -la "$HOME"/"$version".tar.gz
 }
 
 main $@

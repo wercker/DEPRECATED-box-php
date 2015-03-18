@@ -12,16 +12,10 @@ build:
             code: sudo ./install-php-build.sh
 
         - script:
-            name: install phpenv
-            code: sudo ./install-phpenv.sh
-
-        - script:
             name: export
             code: |
                 export PHP_BUILD_CONFIGURE_OPTS="--with-bz2 --enable-intl --enable-calendar"
                 export PHP_BUILD_VERSIONS_DIR="$HOME/.phpenv/versions"
-                export PATH="/home/ubuntu/.phpenv/shims:/home/ubuntu/.phpenv/bin:$PATH"
-                eval "$(phpenv init -)"
 
         - script:
             name: build PHP
