@@ -3,7 +3,7 @@ version: 2.0.0
 inherits: wercker/ubuntu12.04-webessentials@1.0.4
 type : main
 platform : ubuntu@12.04
-no-response-timeout: 25
+no-response-timeout: 60
 build:
     steps:
         - validate-wercker-box
